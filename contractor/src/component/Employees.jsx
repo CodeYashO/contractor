@@ -1,17 +1,35 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EditUserPopup from "./EditUserPopup"; // Import the EditUserPopup component
+import EditUserPopup from "./EditUserPopup"; // Ensure this is correctly importe
 
 export default function Employees({ userCompanies }) {
-  const [editableUsers, setEditableUsers] = useState(userCompanies);
+  const token = localStorage.getItem("token");
+  const [editableUsers, setEditableUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [originalUser, setOriginalUser] = useState(null); // Store original user data
   const [isOpen, setIsOpen] = useState(false); // State to control popup visibility
   const [hasChanges, setHasChanges] = useState(false); // State to track if changes are made
 
   useEffect(() => {
-    setEditableUsers(userCompanies);
-  }, [userCompanies]);
+    fetchUsersByCompany(); // Fetch users initially when the component loads
+
+    // const intervalId = setInterval(fetchUsersByCompany, 1000); // Refresh users every second
+    // return () => clearInterval(intervalId); // Cleanup on unmount
+  }, [hasChanges]);
+
+  const fetchUsersByCompany = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/users/company/66d8743bc662a6193e728ebc`, // Replace with dynamic company ID as needed
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setEditableUsers(response.data.users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
 
   // Function to generate initials from the first and last name
   const getInitials = (firstName, lastName) => {
@@ -46,6 +64,7 @@ export default function Employees({ userCompanies }) {
       setOriginalUser(null);
       setHasChanges(false); // Reset changes state
       setIsOpen(false); // Close the popup after saving
+      fetchUsersByCompany(); // Refresh user data after saving changes
     } catch (error) {
       console.error("Error updating user:", error);
       alert("Failed to update user details.");
@@ -68,10 +87,10 @@ export default function Employees({ userCompanies }) {
       // Compare updated values with original to detect changes
       setHasChanges(
         updatedUser.firstName !== originalUser.firstName ||
-        updatedUser.lastName !== originalUser.lastName ||
-        updatedUser.title !== originalUser.title ||
-        updatedUser.status !== originalUser.status ||
-        updatedUser.role !== originalUser.role
+          updatedUser.lastName !== originalUser.lastName ||
+          updatedUser.title !== originalUser.title ||
+          updatedUser.status !== originalUser.status ||
+          updatedUser.role !== originalUser.role
       );
       return updatedUser;
     });
@@ -127,7 +146,7 @@ export default function Employees({ userCompanies }) {
                             height: "30px",
                             width: "30px",
                           }}
-                          className="bg-black text-white rounded-full"
+                          className="bg-black text-white rounded-full py-1"
                         >
                           <div>
                             {getInitials(person.firstName, person.lastName)}

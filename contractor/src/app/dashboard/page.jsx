@@ -168,31 +168,31 @@ function Dashboard() {
   }, [router]);
 
   // Fetch users whenever selectedCompany changes
-  const fetchUsersByCompany = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/users/company/66d8743bc662a6193e728ebc`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(response);
-      setUserCompanies(response.data.users);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+  // const fetchUsersByCompany = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:5000/api/users/company/66d8743bc662a6193e728ebc`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     console.log(response);
+  //     setUserCompanies(response.data.users);
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    // if (!dropdownOpen) {
-    // Only set up the interval if dropdown is not open
-    fetchUsersByCompany(); // Initial fetch
-    const intervalId = setInterval(fetchUsersByCompany, 1000); // Fetch every 5 seconds
+  // useEffect(() => {
+  //   // if (!dropdownOpen) {
+  //   // Only set up the interval if dropdown is not open
+  //   fetchUsersByCompany(); // Initial fetch
+  //   const intervalId = setInterval(fetchUsersByCompany, 1000); // Fetch every 5 seconds
 
-    // Clean up the interval on component unmount or when dropdown opens
-    return () => clearInterval(intervalId);
-    // }
-  }, []);
+  //   // Clean up the interval on component unmount or when dropdown opens
+  //   return () => clearInterval(intervalId);
+  //   // }
+  // }, []);
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
