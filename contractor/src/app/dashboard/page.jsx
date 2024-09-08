@@ -114,7 +114,6 @@ function Dashboard() {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.log("No token found!");
         router.push("/login");
         return;
       }
