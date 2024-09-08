@@ -27,7 +27,6 @@ import Employees from "@/component/Employees";
 import Sites from "@/component/Sites";
 import Machines from "@/component/Machines";
 import Home from "@/component/Home";
-import DashboardNavigation from "@/component/Dashboard";
 
 // contexts
 import { DropdownContext } from "@/contexts/DropdownRendering";
