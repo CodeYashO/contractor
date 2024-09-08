@@ -153,7 +153,7 @@ export default function Employees({ userCompanies }) {
                         height: "30px",
                         width: "30px",
                       }}
-                      className="bg-black text-white rounded-full py-1"
+                      className="bg-black mx-2 text-white rounded-full py-1"
                     >
                       <div>
                         {getInitials(person.firstName, person.lastName)}
@@ -171,9 +171,11 @@ export default function Employees({ userCompanies }) {
                   <div className="text-gray-900">{person.title}</div>
                 </td>
                 <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                  <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-50 text-green-700 ring-green-600/20">
+                  {person.status === 'active' ? <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-50 text-green-700 ring-green-600/20">
                     {person.status}
-                  </span>
+                  </span> : <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-red-50 text-red-700 ring-red-600/20">
+                    {person.status}
+                  </span> }
                 </td>
                 <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                   {person.role}
