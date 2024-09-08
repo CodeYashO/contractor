@@ -65,8 +65,6 @@ function Dashboard() {
   const [currentSection, setCurrentSection] = useState("Home");
   const { dropdownOpen, toggleDropdown } = useContext(DropdownContext);
 
-  console.log(dropdownOpen);
-
   const handleNavigationClick = (section) => {
     setCurrentSection(section);
   };

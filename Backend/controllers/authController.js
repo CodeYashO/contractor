@@ -328,7 +328,7 @@ exports.acceptInvite = async (req, res) => {
     user.lastName = lastName;
     user.password = password;
     user.contactNumber = contactNumber;
-    user.status = "accepted";
+    user.status = "active";
     user.token = undefined;
     user.expiresAt = undefined;
     user.emailVerified = true;

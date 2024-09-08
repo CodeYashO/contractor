@@ -3,6 +3,7 @@ import "./globals.css";
 import AuthProvider from "@/component/Authprovider/Authprovider";
 import { GoogleButtonProvider } from "@/contexts/googleContext";
 import { DropdownProvider } from "@/contexts/DropdownRendering";
+import { InviteProvider } from "@/contexts/InviteSentContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +17,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
-          <DropdownProvider>
-            <GoogleButtonProvider>{children}</GoogleButtonProvider>
-          </DropdownProvider>
+          <InviteProvider>
+            <DropdownProvider>
+              <GoogleButtonProvider>{children}</GoogleButtonProvider>
+            </DropdownProvider>
+          </InviteProvider>
         </AuthProvider>
       </body>
     </html>

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useInvite } from "@/contexts/InviteSentContext"; // Adjust the path as needed
 
 function Invite() {
   const [inviteData, setInviteData] = useState({
@@ -17,6 +18,8 @@ function Invite() {
   const useremail = localStorage.getItem("useremail");
   const token = localStorage.getItem("token");
   console.log(useremail, token);
+
+  const { setInviteSent } = useInvite(); // Get the context function
 
   useEffect(() => {
     const checkToken = async () => {
@@ -83,6 +86,7 @@ function Invite() {
   const handleInvite = async (e) => {
     e.preventDefault();
     setloading(true);
+    setInviteSent(true)
     console.log(inviteData);
     try {
       const response = await axios.post(
