@@ -63,6 +63,7 @@ function Dashboard() {
   const token = localStorage.getItem("token");
   const userEmail = localStorage.getItem("useremail");
   const [currentSection, setCurrentSection] = useState("Home");
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
   const { dropdownOpen, toggleDropdown } = useContext(DropdownContext);
 
   const handleNavigationClick = (section) => {
@@ -72,7 +73,9 @@ function Dashboard() {
   const renderContent = () => {
     switch (currentSection) {
       case "Employees":
-        return <Employees userCompanies={userCompanies} />;
+        return (
+          <Employees userCompanies={userCompanies} searchQuery={searchQuery} />
+        );
       case "Sites":
         return <Sites />;
       case "Machines":
@@ -123,7 +126,7 @@ function Dashboard() {
           }
         );
 
-        console.log(response)
+        console.log(response);
 
         localStorage.setItem("email", response.data.user.email);
 
@@ -197,8 +200,6 @@ function Dashboard() {
     localStorage.setItem("google", false);
     signOut({ callbackUrl: "/login" });
   };
-
-  console.log(userCompanies);
 
   return (
     <>
@@ -342,8 +343,10 @@ function Dashboard() {
                         id="mobile-search"
                         name="search"
                         type="search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search"
-                        className="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-white placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-black placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
                       />
                     </div>
                   </div>

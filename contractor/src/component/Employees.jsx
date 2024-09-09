@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EditUserPopup from "./EditUserPopup"; // Ensure this is correctly importe
+import EditUserPopup from "./EditUserPopup"; // Ensure this is correctly imported
 import { useInvite } from "@/contexts/InviteSentContext"; // Adjust the path as needed
 
-export default function Employees({ userCompanies }) {
+export default function Employees({ userCompanies , searchQuery }) {
   const token = localStorage.getItem("token");
   const [editableUsers, setEditableUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]); // State to store filtered users
+  // const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
   const [editingUser, setEditingUser] = useState(null);
   const [originalUser, setOriginalUser] = useState(null); // Store original user data
   const [isOpen, setIsOpen] = useState(false); // State to control popup visibility
   const [hasChanges, setHasChanges] = useState(false); // State to track if changes are made
 
-
-  const { inviteSent , setInviteSent } = useInvite(); // Get the context state
-  console.log(inviteSent);
+  const { inviteSent, setInviteSent } = useInvite(); // Get the context state
 
   useEffect(() => {
     fetchUsersByCompany(); // Fetch users initially when the component loads
     setInviteSent(false);
-    // const intervalId = setInterval(fetchUsersByCompany, 1000); // Refresh users every second
-    // return () => clearInterval(intervalId); // Cleanup on unmount
-  }, [hasChanges , inviteSent]);
+  }, [hasChanges, inviteSent]);
+
+  useEffect(() => {
+    handleSearch(); // Call handleSearch whenever searchQuery or editableUsers changes
+  }, [searchQuery, editableUsers]);
 
   const fetchUsersByCompany = async () => {
     try {
@@ -31,6 +33,7 @@ export default function Employees({ userCompanies }) {
         }
       );
       setEditableUsers(response.data.users);
+      setFilteredUsers(response.data.users); // Initially show all users
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -53,8 +56,7 @@ export default function Employees({ userCompanies }) {
 
   // Save changes to backend
   const saveChanges = async () => {
-    // if (!hasChanges) return; // Prevent save if no changes detected
-    setInviteSent(true)
+    setInviteSent(true);
 
     try {
       await axios.post("http://localhost:5000/api/users/update", {
@@ -102,13 +104,22 @@ export default function Employees({ userCompanies }) {
     });
   };
 
+  // Handle search input
+  const handleSearch = () => {
+    const lowercasedQuery = searchQuery.toLowerCase();
+    const filtered = editableUsers.filter((user) =>
+      `${user.firstName} ${user.lastName}`.toLowerCase().includes(lowercasedQuery)
+    );
+    setFilteredUsers(filtered);
+  };
+
   return (
     <div className="sm:px-6 lg:px-8">
-      {/* <div className="mt-8 flow-root">
-      <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
-        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"> */}
       {/* Wrapper with fixed height, full width, and overflow-y-auto for vertical scroll */}
-      <div className="overflow-y-auto px-6 w-full" style={{ maxHeight: "400px" }}>
+      <div
+        className="overflow-y-auto px-6 w-full"
+        style={{ maxHeight: "400px" }}
+      >
         <table className="min-w-full divide-y divide-gray-300">
           <thead>
             <tr>
@@ -142,7 +153,7 @@ export default function Employees({ userCompanies }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {editableUsers.map((person) => (
+            {filteredUsers.map((person) => (
               <tr key={person.email}>
                 <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                   <div className="flex items-center">
@@ -171,11 +182,15 @@ export default function Employees({ userCompanies }) {
                   <div className="text-gray-900">{person.title}</div>
                 </td>
                 <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                  {person.status === 'active' ? <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-50 text-green-700 ring-green-600/20">
-                    {person.status}
-                  </span> : <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-red-50 text-red-700 ring-red-600/20">
-                    {person.status}
-                  </span> }
+                  {person.status === "active" ? (
+                    <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-50 text-green-700 ring-green-600/20">
+                      {person.status}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-red-50 text-red-700 ring-red-600/20">
+                      {person.status}
+                    </span>
+                  )}
                 </td>
                 <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                   {person.role}
@@ -206,8 +221,5 @@ export default function Employees({ userCompanies }) {
         />
       )}
     </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
