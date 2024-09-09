@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useInvite } from "@/contexts/InviteSentContext"; // Adjust the path as needed
+import Dropdown from "./Dropdown"; // Adjust the path as needed
 
 function Invite() {
   const [inviteData, setInviteData] = useState({
     role: "employee", // default role
     email: "",
-    title : "",
+    title: "",
     username: "",
     companyId: "",
   });
@@ -77,16 +78,20 @@ function Invite() {
     };
 
     checkToken();
-  }, [router]);
+  }, [router, token]);
 
   const handleChange = (e) => {
     setInviteData({ ...inviteData, [e.target.name]: e.target.value });
   };
 
+  const handleInviteChange = (name, value) => {
+    setInviteData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleInvite = async (e) => {
     e.preventDefault();
     setloading(true);
-    setInviteSent(true)
+    setInviteSent(true);
     console.log(inviteData);
     try {
       const response = await axios.post(
@@ -103,137 +108,121 @@ function Invite() {
   };
 
   return token ? (
-  //   <div className="bg-center flex flex-col justify-center sm:px-6 lg:px-8 min-h-screen">
-  // <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-    // <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-      <form className="bg-white" onSubmit={handleInvite}>
-        <div>
-          <label
-            htmlFor="role"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Role
-          </label>
-          <select
-            required
-            name="role"
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          >
-            <option value="admin">Admin</option>
-            <option value="employee">Employee</option>
-            <option value="manager">Manager</option>
-          </select>
-        </div>
-
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="username"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Username
-          </label>
-          <input
-            type="text"
-            name="username"
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          />
-        </div>
-
-        {/* Title Field Added */}
-        <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Title
-          </label>
-          <input
-            type="text"
-            name="title"
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          />
-        </div>
-
-        <div className="my-2">
-          <label
-            htmlFor="companyId"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Company
-          </label>
-          <select
-            required
-            name="companyId"
-            value={inviteData.companyId}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          >
-            {companies.map((company) => (
-              <option key={company._id} value={company._id}>
-                {company.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    <form className="bg-white" onSubmit={handleInvite}>
+      <div>
+        <label
+          htmlFor="role"
+          className="block text-sm font-medium leading-6 text-gray-900"
         >
-          {loading ? (
-            <svg
-              className="animate-spin h-5 w-5 mx-auto"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-              ></path>
-            </svg>
-          ) : (
-            "Invite"
-          )}
-        </button>
-      </form>
-//      </div>
-//   </div>
-// </div>
-  ) : (
-    ""
-  );
+          Role
+        </label>
+        <Dropdown
+          options={["admin", "employee", "manager"]}
+          selectedValue={inviteData.role}
+          onChange={(value) => handleInviteChange("role", value)}
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Email
+        </label>
+        <input
+          type="email"
+          name="email"
+          value={inviteData.email}
+          onChange={handleChange}
+          required
+          className="mt-1 px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="username"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Username
+        </label>
+        <input
+          type="text"
+          name="username"
+          value={inviteData.username}
+          onChange={handleChange}
+          required
+          className="mt-1 px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="title"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Title
+        </label>
+        <input
+          type="text"
+          name="title"
+          value={inviteData.title}
+          onChange={handleChange}
+          required
+          className="mt-1 px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+        />
+      </div>
+
+      <div className="my-2">
+        <label
+          htmlFor="companyId"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Company
+        </label>
+        <Dropdown
+          options={companies.map((company) => company.name)}
+          selectedValue={companies.find(company => company._id === inviteData.companyId)?.name || "Select Company"}
+          onChange={(value) => {
+            const selectedCompany = companies.find(company => company.name === value);
+            handleInviteChange("companyId", selectedCompany?._id || "");
+          }}
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        {loading ? (
+          <svg
+            className="animate-spin h-5 w-5 mx-auto"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            ></path>
+          </svg>
+        ) : (
+          "Invite"
+        )}
+      </button>
+    </form>
+  ) : null;
 }
 
 export default Invite;

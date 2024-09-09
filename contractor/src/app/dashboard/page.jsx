@@ -467,7 +467,7 @@ function Dashboard() {
                   <h2 id="section-1-title" className="sr-only">
                     Section title
                   </h2>
-                  <div className="overflow-hidden rounded-lg bg-white shadow">
+                  <div className="rounded-lg bg-white shadow">
                     <div className="p-6">{renderContent(currentSection)}</div>
                   </div>
                 </section>
@@ -479,7 +479,7 @@ function Dashboard() {
                   <h2 id="section-2-title" className="sr-only">
                     Section title
                   </h2>
-                  <div className="overflow-hidden rounded-lg bg-white shadow">
+                  <div className="rounded-lg bg-white shadow">
                     <div className="p-6">
                       {currentSection === "Employees" ? <Invite /> : ""}
                     </div>

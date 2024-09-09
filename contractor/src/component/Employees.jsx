@@ -53,7 +53,7 @@ export default function Employees({ userCompanies }) {
 
   // Save changes to backend
   const saveChanges = async () => {
-    if (!hasChanges) return; // Prevent save if no changes detected
+    // if (!hasChanges) return; // Prevent save if no changes detected
     setInviteSent(true)
 
     try {
@@ -153,7 +153,7 @@ export default function Employees({ userCompanies }) {
                         height: "30px",
                         width: "30px",
                       }}
-                      className="bg-black mx-2 text-white rounded-full py-1"
+                      className="bg-black mx- text-white rounded-full py-1 mx-3"
                     >
                       <div>
                         {getInitials(person.firstName, person.lastName)}
