@@ -322,7 +322,7 @@ function Dashboard() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search a User"
-                        className="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-black placeholder:text-black focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-black placeholder:text-black focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
                       />
                     </div>
                   </div>
@@ -365,7 +365,7 @@ function Dashboard() {
                       href="#"
                       className="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
                     >
-                      Home
+                      Hom
                     </a>
                     <a
                       href="#"
@@ -441,25 +441,25 @@ function Dashboard() {
             {/* Main 3 column grid */}
             <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
               {/* Left column */}
-              <div className="grid grid-cols-1 gap-4 lg:col-span-2">
+              <div className="grid grid-cols-1 gap-4 lg:col-span-2 shadow-xl">
                 <section aria-labelledby="section-1-title">
                   <h2 id="section-1-title" className="sr-only">
                     Section title
                   </h2>
-                  <div className="rounded-lg bg-white shadow">
+                  <div className="rounded-lg bg-white">
                     <div className="p-6">{renderContent(currentSection)}</div>
                   </div>
                 </section>
               </div>
 
               {/* Right column */}
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-4 shadow-xl">
                 <section aria-labelledby="section-2-title">
                   <h2 id="section-2-title" className="sr-only">
                     Section title
                   </h2>
                   <div className="rounded-lg bg-white shadow">
-                    <div className="p-6">
+                    <div className="p-6 ">
                       {currentSection === "Employees" ? <Invite /> : ""}
                     </div>
                   </div>

@@ -9,7 +9,7 @@ function Invite() {
   const [inviteData, setInviteData] = useState({
     role: "employee", // default role
     email: "",
-    title: "",
+    title: "Site Manager", // Default title
     username: "",
     companyId: "",
   });
@@ -164,13 +164,10 @@ function Invite() {
         >
           Title
         </label>
-        <input
-          type="text"
-          name="title"
-          value={inviteData.title}
-          onChange={handleChange}
-          required
-          className="mt-1 px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+        <Dropdown
+          options={["Site Manager", "Contractor", "Worker", "Engineer", "Supervisor"]}
+          selectedValue={inviteData.title}
+          onChange={(value) => handleInviteChange("title", value)}
         />
       </div>
 
@@ -194,7 +191,7 @@ function Invite() {
       <button
         type="submit"
         disabled={loading}
-        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="flex w-full justify-center my-4 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         {loading ? (
           <svg
