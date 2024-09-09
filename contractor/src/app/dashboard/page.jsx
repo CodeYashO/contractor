@@ -261,30 +261,6 @@ function Dashboard() {
                 </Menu>
               </div>
 
-              {/* Search */}
-              <div className="min-w-0 flex-1 px-12 lg:hidden">
-                <div className="mx-auto w-full max-w-xs">
-                  <label htmlFor="desktop-search" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative text-white focus-within:text-gray-600">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                      <MagnifyingGlassIcon
-                        aria-hidden="true"
-                        className="h-5 w-5"
-                      />
-                    </div>
-                    <input
-                      id="desktop-search"
-                      name="search"
-                      type="search"
-                      placeholder="Search"
-                      className="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-white placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div>
-              </div>
-
               {/* Menu button */}
               <div className="absolute right-0 flex-shrink-0 lg:hidden">
                 {/* Mobile menu button */}
@@ -332,7 +308,7 @@ function Dashboard() {
                     <label htmlFor="mobile-search" className="sr-only">
                       Search
                     </label>
-                    <div className="relative text-white focus-within:text-gray-600">
+                    <div className="relative text-black focus-within:text-gray-600">
                       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         <MagnifyingGlassIcon
                           aria-hidden="true"
@@ -345,8 +321,8 @@ function Dashboard() {
                         type="search"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search"
-                        className="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-black placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
+                        placeholder="Search a User"
+                        className="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-black placeholder:text-black focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
                       />
                     </div>
                   </div>

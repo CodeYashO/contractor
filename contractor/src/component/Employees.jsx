@@ -114,7 +114,7 @@ export default function Employees({ userCompanies , searchQuery }) {
   };
 
   return (
-    <div className="sm:px-6 lg:px-8">
+    <div className="bg-zinc-100 rounded-md">
       {/* Wrapper with fixed height, full width, and overflow-y-auto for vertical scroll */}
       <div
         className="overflow-y-auto px-6 w-full"
@@ -152,7 +152,7 @@ export default function Employees({ userCompanies , searchQuery }) {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200 bg-white">
+          <tbody className="divide-y divide-gray-200 bg-zinc-100">
             {filteredUsers.map((person) => (
               <tr key={person.email}>
                 <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
