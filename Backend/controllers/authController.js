@@ -4,7 +4,7 @@ const sendEmail = require("../utils/sendEmail");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const Invite = require("../models/Invite");
+// const Invite = require("../models/Invite");
 
 // Register User
 exports.register = async (req, res) => {
@@ -342,24 +342,24 @@ exports.acceptInvite = async (req, res) => {
   }
 };
 
-exports.getInvitedUsersByAdmin = async (req, res) => {
-  const { email } = req.body;
-  try {
-    // const adminId = req.user._id; // Assuming you are using authentication and have the admin's ID
-    const adminUser = await User.findOne({ email });
-    console.log(adminUser);
+// exports.getInvitedUsersByAdmin = async (req, res) => {
+//   const { email } = req.body;
+//   try {
+//     // const adminId = req.user._id; // Assuming you are using authentication and have the admin's ID
+//     const adminUser = await User.findOne({ email });
+//     console.log(adminUser);
 
-    // if (!adminUser || adminUser.role !== 'admin') {
-    //   return res.status(403).json({ message: 'Access denied.' });
-    // }
+//     // if (!adminUser || adminUser.role !== 'admin') {
+//     //   return res.status(403).json({ message: 'Access denied.' });
+//     // }
 
-    // Fetch all invites sent by the admin that belong to the same company
-    const invites = await Invite.find({
-      company: { $in: adminUser._id },
-    });
+//     // Fetch all invites sent by the admin that belong to the same company
+//     const invites = await Invite.find({
+//       company: { $in: adminUser._id },
+//     });
 
-    res.status(200).json({ invites });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+//     res.status(200).json({ invites });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message }); 
+//   }
+// };

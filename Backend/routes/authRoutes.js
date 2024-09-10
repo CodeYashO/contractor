@@ -12,7 +12,8 @@ router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:resetToken', resetPassword);
 router.post('/invite' , sendInvite);
 router.post('/accept-invitation/:token' , acceptInvite);
-router.post('/accepted-invited-users' , getInvitedUsersByAdmin);
+// router.post('/accepted-invited-users' , getInvitedUsersByAdmin);
 router.get('/verify-token', verifyToken);
 
 module.exports = router;
+ 

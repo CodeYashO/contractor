@@ -172,7 +172,7 @@ export default function Employees({ userCompanies , searchQuery }) {
                     </div>
                     <div>
                       <div className="font-medium text-gray-900">
-                        {person.firstName || "NA"} {person.lastName || "NA"}
+                        {person.firstName || "NA"} {" "} {person.lastName || "NA"}
                       </div>
                       <div className="mt-1 text-gray-500">{person.email}</div>
                     </div>

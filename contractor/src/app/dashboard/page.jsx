@@ -22,6 +22,7 @@ function classNames(...classes) {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Invite from "@/component/Invite";
+import CreateSite from "@/component/CreateSite"; 
 
 import Employees from "@/component/Employees";
 import Sites from "@/component/Sites";
@@ -461,6 +462,7 @@ function Dashboard() {
                   <div className="rounded-lg bg-white shadow">
                     <div className="p-6 ">
                       {currentSection === "Employees" ? <Invite /> : ""}
+                      {currentSection === "Sites" ? < CreateSite /> : ""}
                     </div>
                   </div>
                 </section>

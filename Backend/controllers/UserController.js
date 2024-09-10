@@ -87,3 +87,15 @@ exports.removeUser = async (req, res) => {
     res.status(500).json({ message: "Error removing user", error });
   }
 };
+
+exports.getUsersByOrganization = async (req, res) => {
+  const { orgId } = req.params; // Assuming orgId is passed as a parameter
+  console.log(orgId)
+  try {
+    const users = await User.find({ company : orgId }) // Fetch users belonging to the given organization ID
+    res.status(200).json({ users });
+  } catch (error) { 
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: "Failed to fetch users." });
+  }
+};
