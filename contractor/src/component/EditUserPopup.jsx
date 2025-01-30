@@ -58,7 +58,36 @@ const EditUserPopup = ({ isOpen, setIsOpen, currentUser, handleInputChange, save
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                       />
                     </div>
-                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Role</label>
+                      <input
+                        type="text"
+                        name="role"
+                        value={currentUser?.role || ""}
+                        onChange={handleInputChange}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Status</label>
+                      <input
+                        type="text"
+                        name="status"
+                        value={currentUser?.status || ""}
+                        onChange={handleInputChange}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Title</label>
+                      <input
+                        type="text"
+                        name="title"
+                        value={currentUser?.title || ""}
+                        onChange={handleInputChange}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                      />
+                    </div>
                   </form>
                 </div>
               </div>

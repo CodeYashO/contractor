@@ -31,6 +31,7 @@ import Home from "@/component/Home";
 
 // contexts
 import { DropdownContext } from "@/contexts/DropdownRendering";
+import CreateMachine from "@/component/CreateMachine";
 
 const user = {
   name: "Tom Cook",
@@ -463,6 +464,7 @@ function Dashboard() {
                     <div className="p-6 ">
                       {currentSection === "Employees" ? <Invite /> : ""}
                       {currentSection === "Sites" ? < CreateSite /> : ""}
+                      {currentSection === "Machines" ? <CreateMachine /> : ""}
                     </div>
                   </div>
                 </section>

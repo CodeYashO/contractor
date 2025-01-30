@@ -82,10 +82,24 @@ exports.createSite = async (req, res) => {
   }
 };
 
-// Route to get all sites
 exports.getAllSites = async (req, res) => {
   try {
     const sites = await Site.find().populate("siteIncharge"); // Populate siteIncharge with user details if needed
+
+    res.json({ sites });
+  } catch (error) {
+    console.error("Error fetching sites:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+// Route to get all sites
+exports.getAllSitesByOrganaization = async (req, res) => {
+  console.log(req.params);
+  try {
+    const sites = await Site.find({orgId : req.params.orgId}).populate("siteIncharge"); // Populate siteIncharge with user details if needed
+    console.log(sites);
     res.json({ sites });
   } catch (error) {
     console.error("Error fetching sites:", error);
